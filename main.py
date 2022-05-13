@@ -12,7 +12,12 @@ if __name__ == '__main__':
         with connect(**CONNECT_KWARGS) as connection:
             with connection.cursor() as cursor:
                 cursor.execute(SHOW_DATABASES)
-                for db in cursor:
-                    print(db[0])
+                databases = []
+                for i, db in enumerate(cursor, start=1):
+                    databases.append(db[0])
+                    print(i, db[0])
+                select_db = int(input("Select the database which you want to copy:"))
+                select_db = databases[select_db-1]
+                print(select_db)
     except Error as e:
         print(e)
